@@ -9,5 +9,6 @@ public interface IOrderService {
 
 	public List<OrderDTO> getAllOrders();
 	public OrderDTO createOrder(OrderForm orderForm);
+	public OrderDTO getOrderById(Long id);
 
 }
