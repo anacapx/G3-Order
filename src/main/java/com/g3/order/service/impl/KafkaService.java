@@ -5,7 +5,7 @@ import java.util.concurrent.ExecutionException;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.Callback;
-import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -14,13 +14,20 @@ import com.google.gson.Gson;
 
 public class KafkaService {
 
-  public static String messageConstructor(Object o){
+  private final Producer<String, String> producer;
+  final String outTopic;
+
+  public KafkaService(final Producer<String, String> producer, final String topic) {
+    this.producer = producer;
+    this.outTopic = topic;
+  }
+
+  public static String messageConstructor(Object o) {
     return new Gson().toJson(o);
   }
 
-  public static void sendMessage(String key, String value) throws InterruptedException, ExecutionException {
-    KafkaProducer<String, String> producer = new KafkaProducer<String, String>(properties());
-    ProducerRecord<String, String> record = new ProducerRecord<String, String>(System.getenv("KAFKA_TOPIC"), key,
+  public void sendMessage(String key, String value) throws InterruptedException, ExecutionException {
+    ProducerRecord<String, String> record = new ProducerRecord<String, String>(outTopic, key,
         value);
 
     Callback callback = (data, ex) -> {
@@ -36,7 +43,7 @@ public class KafkaService {
     producer.close();
   }
 
-  private static Properties properties() {
+  public static Properties properties() {
     Properties properties = new Properties();
     properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, System.getenv("KAFKA_HOST"));
     properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());

@@ -20,7 +20,7 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "orderId", nullable = false)
-	private Long orderId;
+	private Long orderId = Long.valueOf(1);
 	
 	@Column(name = "user_id", nullable = false)
 	private Long userId;
@@ -36,9 +36,15 @@ public class Order {
 	
 	@Column(name = "order_status", nullable = false)
 	@Enumerated(EnumType.STRING)
-	private OrderEnum status;
+	private OrderEnum status = OrderEnum.PENDING;
 	
 	public Order() {
+	}
+	
+	public Order(Long userId, Double value, String products) {
+		this.userId = userId;
+		this.value = value;
+		this.products = products;
 	}
 
 	public Long getOrderId() {
