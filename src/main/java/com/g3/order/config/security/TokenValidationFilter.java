@@ -13,7 +13,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.g3.order.service.impl.RestService;
 
-public class ApiFilter extends OncePerRequestFilter {
+public class TokenValidationFilter extends OncePerRequestFilter {
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

@@ -19,7 +19,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.anyRequest().authenticated()
 		.and().csrf().disable()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and().addFilterBefore(new ApiFilter(), UsernamePasswordAuthenticationFilter.class);
+		.and().addFilterBefore(new TokenValidationFilter(), UsernamePasswordAuthenticationFilter.class);
 		
 	}
 
