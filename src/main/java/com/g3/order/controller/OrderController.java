@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,10 +18,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.g3.order.controller.dto.OrderDTO;
 import com.g3.order.controller.form.OrderForm;
+import com.g3.order.service.impl.KafkaProducerApp;
+import com.g3.order.service.impl.KafkaService;
 import com.g3.order.service.interfaces.IOrderService;
 
 @RestController
 @RequestMapping("/order")
+@CrossOrigin("*")
 public class OrderController {
 
 	@Autowired
@@ -43,6 +47,7 @@ public class OrderController {
 			UriComponentsBuilder uriBuilder) {
 		OrderDTO orderDTO = orderService.createOrder(orderForm);
 		URI uri = uriBuilder.path("/order/{id}").buildAndExpand(orderDTO.getId()).toUri();
+		KafkaProducerApp.produce(orderDTO.getId().toString(), KafkaService.messageConstructor(orderDTO));
 		return ResponseEntity.created(uri).body(orderDTO);
 	}
 }

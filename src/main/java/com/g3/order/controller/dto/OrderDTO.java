@@ -3,9 +3,9 @@ package com.g3.order.controller.dto;
 import java.sql.Timestamp;
 
 import com.g3.order.model.Order;
+import com.g3.order.model.User;
 import com.g3.order.model.enums.OrderEnum;
 import com.g3.order.service.impl.RestService;
-import com.g3.order.util.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

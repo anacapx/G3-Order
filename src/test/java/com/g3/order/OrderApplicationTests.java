@@ -16,7 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.g3.order.controller.dto.OrderDTO;
 import com.g3.order.model.Order;
 import com.g3.order.service.impl.KafkaService;
-import com.g3.order.util.User;
+import com.g3.order.model.User;
 
 @SpringBootTest
 class OrderApplicationTests {
@@ -29,8 +29,7 @@ class OrderApplicationTests {
 	public void testProducerKafka() throws InterruptedException, ExecutionException {
 		final StringSerializer stringSerializer = new StringSerializer();
 		final MockProducer<String, String> mockProducer = new MockProducer<>(true, stringSerializer, stringSerializer);
-		// final String topic = System.getenv("KAFKA_TEST_TOPIC");
-		final String topic = "TOPIC_TEST";
+		final String topic = System.getenv("KAFKA_TEST_TOPIC");
 		final KafkaService producer = new KafkaService(mockProducer, topic);
 
 		User user = new User("Username", "123", "recipient@email.com");

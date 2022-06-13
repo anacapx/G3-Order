@@ -1,4 +1,4 @@
-package com.g3.order.util;
+package com.g3.order.model;
 
 import javax.validation.constraints.Email;
 

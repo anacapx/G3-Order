@@ -15,17 +15,14 @@ public class FormErrorDTO {
 		this.field = field;
 		this.errorMessage = errorMessage;
 	}
-
 	
 	public Date getCurrentDate() {
 		return currentDate;
 	}
 
-
 	public Integer getStatus() {
 		return status;
 	}
-
 
 	public String getField() {
 		return field;
