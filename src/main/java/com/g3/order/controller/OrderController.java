@@ -30,7 +30,6 @@ public class OrderController {
 
 	@GetMapping
 	public ResponseEntity<List<OrderDTO>> getAllOrders() {
-		System.out.println("oier");
 		List<OrderDTO> ordersDTOs = orderService.getAllOrders();
 		return ResponseEntity.ok(ordersDTOs);
 	}
