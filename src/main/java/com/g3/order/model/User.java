@@ -9,7 +9,12 @@ public class User {
     private String phone;
     private String email;
     
-    public User() {
+    @Override
+	public String toString() {
+		return "User [name=" + name + ", phone=" + phone + ", email=" + email + "]";
+	}
+
+	public User() {
 	}
     
 	public String getName() {

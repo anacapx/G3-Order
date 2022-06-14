@@ -27,4 +27,17 @@ public class OrderForm {
 	public Order toOrder() {
 		return new Order(this.userId, this.value, this.products);
 	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public Double getValue() {
+		return value;
+	}
+
+	public String getProducts() {
+		return products;
+	}
+	
 }

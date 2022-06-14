@@ -10,6 +10,7 @@ import com.g3.order.service.impl.RestService;
 public class OrderDTO {
 
 	private Long id;
+//	private Long userId;
 	private User user;
 	private Double value;
 	private String products;
@@ -24,6 +25,16 @@ public class OrderDTO {
 			throw new RuntimeException(e.getMessage());
 		}
 		this.id = order.getOrderId();
+//		this.userId = order.getUserId();
+		this.value = order.getValue();
+		this.products = order.getProducts();
+		this.date = order.getDate();
+		this.status = order.getStatus();
+	}
+
+	public OrderDTO(Order order, User user) {
+		this.user = user;
+		this.id = order.getOrderId();
 		this.value = order.getValue();
 		this.products = order.getProducts();
 		this.date = order.getDate();
@@ -33,6 +44,9 @@ public class OrderDTO {
 	public User getUser() {
 		return user;
 	}
+//	public Long getUserId() {
+//		return userId;
+//	}
 	public Long getId() {
 		return id;
 	}

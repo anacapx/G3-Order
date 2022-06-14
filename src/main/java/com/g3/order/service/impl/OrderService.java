@@ -12,6 +12,7 @@ import com.g3.order.controller.dto.OrderDTO;
 import com.g3.order.controller.form.OrderForm;
 import com.g3.order.exception.custom.ResourceNotFoundException;
 import com.g3.order.model.Order;
+import com.g3.order.model.User;
 import com.g3.order.repository.OrderRepository;
 import com.g3.order.service.interfaces.IOrderService;
 
@@ -35,9 +36,17 @@ public class OrderService implements IOrderService {
 
 	@Override
 	public OrderDTO createOrder(OrderForm orderForm) {
-		Order order = orderRepository.save(orderForm.toOrder());
-			OrderDTO orderDTO = new OrderDTO(order);
-			return orderDTO;			
+		try {
+			User user = RestService.getUserById(orderForm.getUserId());		
+			if (user.getName() == null) {
+				throw new ResourceNotFoundException("User not found.");
+			}
+			Order order = orderRepository.save(orderForm.toOrder());
+			OrderDTO orderDTO = new OrderDTO(order, user);
+			return orderDTO;						
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 
 	@Override
