@@ -18,6 +18,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.g3.order.controller.dto.OrderDTO;
 import com.g3.order.controller.form.OrderForm;
+import com.g3.order.service.impl.KafkaProducerApp;
+import com.g3.order.service.impl.KafkaService;
 import com.g3.order.service.interfaces.IOrderService;
 
 @RestController
@@ -45,6 +47,7 @@ public class OrderController {
 			UriComponentsBuilder uriBuilder) {
 		OrderDTO orderDTO = orderService.createOrder(orderForm);
 		URI uri = uriBuilder.path("/order/{id}").buildAndExpand(orderDTO.getId()).toUri();
+		KafkaProducerApp.produce(orderDTO.getId().toString(), KafkaService.messageConstructor(orderDTO));
 		return ResponseEntity.created(uri).body(orderDTO);
 	}
 }

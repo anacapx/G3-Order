@@ -7,6 +7,13 @@ import com.g3.order.model.User;
 import com.g3.order.model.enums.OrderEnum;
 import com.g3.order.service.impl.RestService;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class OrderDTO {
 
 	private Long id;
@@ -16,7 +23,7 @@ public class OrderDTO {
 	private String products;
 	private Timestamp date;
 	private OrderEnum status;
-	
+
 	public OrderDTO(Order order) {
 		try {
 			User user = RestService.getUserById(order.getUserId());
@@ -40,27 +47,5 @@ public class OrderDTO {
 		this.date = order.getDate();
 		this.status = order.getStatus();
 	}
-	
-	public User getUser() {
-		return user;
-	}
-//	public Long getUserId() {
-//		return userId;
-//	}
-	public Long getId() {
-		return id;
-	}
-	public Double getValue() {
-		return value;
-	}
-	public String getProducts() {
-		return products;
-	}
-	public Timestamp getDate() {
-		return date;
-	}
-	public OrderEnum getStatus() {
-		return status;
-	}
-	
+
 }
