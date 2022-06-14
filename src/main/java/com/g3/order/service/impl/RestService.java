@@ -21,14 +21,6 @@ public class RestService {
 
 	public static User getUserById(Long userId) throws IOException {
 
-//		Requisição POST /order com token + idUser no body
-//		1. autentica token
-//		2. cria order (c/ userId)
-//		3. cria orderDTO
-//			- GET /user/id com token no header
-//		4. retorna pedido
-		
-		
 		Integer userIdInt = userId.intValue();
 		String token = SecurityContextHolder.getContext().getAuthentication().getCredentials().toString();
 		HttpClient client = HttpClients.custom().build();
