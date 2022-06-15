@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -30,8 +31,8 @@ public class OrderController {
 	private IOrderService orderService;
 
 	@GetMapping
-	public ResponseEntity<List<OrderDTO>> getAllOrders() {
-		List<OrderDTO> ordersDTOs = orderService.getAllOrders();
+	public ResponseEntity<List<OrderDTO>> getAllOrders(@RequestParam(name = "page") int pageValue, @RequestParam(name = "size") int sizeValue) {
+		List<OrderDTO> ordersDTOs = orderService.getAllOrders(pageValue, sizeValue);
 		return ResponseEntity.ok(ordersDTOs);
 	}
 

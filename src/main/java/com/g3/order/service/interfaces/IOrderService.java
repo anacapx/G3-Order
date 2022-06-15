@@ -8,7 +8,7 @@ import com.g3.order.controller.form.OrderForm;
 
 public interface IOrderService {
 
-	public List<OrderDTO> getAllOrders();
+	public List<OrderDTO> getAllOrders(int page, int size);
 	public NewOrderDTO createOrder(OrderForm orderForm);
 	public OrderDTO getOrderById(Long id);
 

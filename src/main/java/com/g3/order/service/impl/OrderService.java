@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +28,9 @@ public class OrderService implements IOrderService {
 	private OrderRepository orderRepository;
 	
 	@Override
-	public List<OrderDTO> getAllOrders() {
-		List<Order> orders = orderRepository.findAll();
+	public List<OrderDTO> getAllOrders(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		Page<Order> orders = orderRepository.findAll(pageable);
 		List<OrderDTO> ordersDTO = new ArrayList<>();
 		for (Order o : orders) {
 			OrderDTO orderDTO = new OrderDTO(o);
