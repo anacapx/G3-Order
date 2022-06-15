@@ -54,7 +54,7 @@ public class RestService {
 			return usernamePasswordAuthenticationToken;
 			
 		} catch (Exception e) {
-			throw new ResourceNotFoundException("No body returned in HTTP request to API_AUTH_URL");
+			throw new RuntimeException("Unable to get proper response from Auth API.");
 		}
 	}
 
