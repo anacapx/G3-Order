@@ -1,7 +1,6 @@
 package com.g3.order.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
@@ -21,14 +20,6 @@ public class OrderServiceTest {
 
     @InjectMocks
     private OrderService orderservice;
-
-    @Test
-    void itShouldReturnAnOrdersList() {
-        // When
-        orderservice.getAllOrders();
-        // Then
-        verify(orderRepository).findAll();
-    }
 
     @Test
     void itShouldThorwsAnResourceNotFoundExceptionWhenAnInvalidIdIsPassed() {
