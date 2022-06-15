@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import com.g3.order.controller.dto.NewOrderDTO;
 import com.g3.order.controller.dto.OrderDTO;
 import com.g3.order.controller.form.OrderForm;
 import com.g3.order.exception.custom.ResourceNotFoundException;
@@ -35,14 +36,14 @@ public class OrderService implements IOrderService {
 	}
 
 	@Override
-	public OrderDTO createOrder(OrderForm orderForm) {
+	public NewOrderDTO createOrder(OrderForm orderForm) {
 		try {
 			User user = RestService.getUserById(orderForm.getUserId());		
 			if (user.getName() == null) {
 				throw new ResourceNotFoundException("User not found.");
 			}
 			Order order = orderRepository.save(orderForm.toOrder());
-			OrderDTO orderDTO = new OrderDTO(order, user);
+			NewOrderDTO orderDTO = new NewOrderDTO(order);
 			return orderDTO;						
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());

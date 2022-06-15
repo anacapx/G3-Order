@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.g3.order.controller.dto.NewOrderDTO;
 import com.g3.order.controller.dto.OrderDTO;
 import com.g3.order.controller.form.OrderForm;
 import com.g3.order.service.interfaces.IOrderService;
@@ -41,9 +42,9 @@ public class OrderController {
 	}
 
 	@PostMapping
-	public ResponseEntity<OrderDTO> createOrder(@RequestBody @Valid OrderForm orderForm,
+	public ResponseEntity<NewOrderDTO> createOrder(@RequestBody @Valid OrderForm orderForm,
 			UriComponentsBuilder uriBuilder) {
-		OrderDTO orderDTO = orderService.createOrder(orderForm);
+		NewOrderDTO orderDTO = orderService.createOrder(orderForm);
 		URI uri = uriBuilder.path("/order/{id}").buildAndExpand(orderDTO.getId()).toUri();
 		return ResponseEntity.created(uri).body(orderDTO);
 	}
