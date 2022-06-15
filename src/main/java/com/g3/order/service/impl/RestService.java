@@ -9,10 +9,10 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import java.lang.RuntimeException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import com.g3.order.exception.custom.ResourceNotFoundException;
 import com.g3.order.model.ResponseBody;
 import com.g3.order.model.User;
 import com.google.gson.Gson;
