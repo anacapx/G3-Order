@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: g3-order
+  namespace: namespace-g3
+spec:
+  selector:
+    matchLabels:
+      app: g3-order
+  template:
+    metadata:
+      labels:
+        app: g3-order
+    spec:
+      containers:
+        - name: g3-order
+          image: $URL_IMG_ORDER_DOCKER
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8081
