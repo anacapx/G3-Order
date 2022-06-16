@@ -30,15 +30,12 @@ public class RestService {
 //				SecurityContextHolder.getContext().getAuthentication().getCredentials().toString();
 		HttpClient client = HttpClients.custom().build();
 		String path = (System.getenv("API_USER_URL") + userIdInt.toString()).replace(" ", "");
-		System.out.println(path);
 		HttpUriRequest request = RequestBuilder.get().setUri(path)
 				.setHeader("Authorization", "Bearer " + token).build();
 		HttpResponse response = client.execute(request);
 
 		String bodyAsString = EntityUtils.toString(response.getEntity());
-		System.out.println("response: " + bodyAsString);
 		User user = new Gson().fromJson(bodyAsString, User.class);
-		System.out.println("user: " + user.toString());
 		return user;
 	}
 
