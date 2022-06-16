@@ -13,10 +13,10 @@ import org.apache.kafka.streams.KeyValue;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.g3.order.controller.dto.OrderDTO;
+import com.g3.order.controller.dto.NewOrderDTO;
 import com.g3.order.model.Order;
-import com.g3.order.service.impl.KafkaService;
 import com.g3.order.model.User;
+import com.g3.order.service.impl.KafkaService;
 
 @SpringBootTest
 class OrderApplicationTests {
