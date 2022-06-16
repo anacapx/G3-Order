@@ -35,7 +35,7 @@ class OrderApplicationTests {
 		User user = new User("Username", "123", "recipient@email.com");
 		Order o = new Order(Long.valueOf(1), 178.9, "Uma lista de produtos");
 
-		producer.sendMessage("1", KafkaService.messageConstructor(new OrderDTO(o, user)));
+		producer.sendMessage("1", KafkaService.messageConstructor(new NewOrderDTO(o)));
 
 		SimpleDateFormat formater = new SimpleDateFormat("MMM d, yyyy, h:mm:ss a");
 		String valueExpected = "{\"id\":1,\"user\":{\"name\":\"Username\",\"phone\":\"123\",\"email\":\"recipient@email.com\"},\"value\":178.9,\"products\":\"Uma lista de produtos\",\"date\":"
