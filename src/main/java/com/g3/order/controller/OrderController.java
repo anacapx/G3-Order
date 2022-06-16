@@ -3,6 +3,7 @@ package com.g3.order.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,10 +47,14 @@ public class OrderController {
 
 	@PostMapping
 	public ResponseEntity<NewOrderDTO> createOrder(@RequestBody @Valid OrderForm orderForm,
-			UriComponentsBuilder uriBuilder) {
-		NewOrderDTO orderDTO = orderService.createOrder(orderForm);
+			UriComponentsBuilder uriBuilder, HttpServletRequest httpServletRequest) {
+		NewOrderDTO orderDTO = orderService.createOrder(orderForm, httpServletRequest);
 		URI uri = uriBuilder.path("/order/{id}").buildAndExpand(orderDTO.getId()).toUri();
-		KafkaProducerApp.produce(orderDTO.getId().toString(), KafkaService.messageConstructor(orderDTO));
-		return ResponseEntity.created(uri).body(orderDTO);
+		try {
+			KafkaProducerApp.produce(orderDTO.getId().toString(), KafkaService.messageConstructor(orderDTO));
+			return ResponseEntity.created(uri).body(orderDTO);			
+		} catch (Exception e) {
+			throw new RuntimeException("Kafka is unavailable, but the order was created successfully");
+		}
 	}
 }

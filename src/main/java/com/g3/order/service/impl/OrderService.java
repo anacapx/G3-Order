@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -40,14 +42,14 @@ public class OrderService implements IOrderService {
 	}
 
 	@Override
-	public NewOrderDTO createOrder(OrderForm orderForm) {
+	public NewOrderDTO createOrder(OrderForm orderForm, HttpServletRequest httpServletRequest) {
 		try {
-			User user = RestService.getUserById(orderForm.getUserId());		
+			User user = RestService.getUserById(orderForm.getUserId(), httpServletRequest);		
 			if (user.getName() == null) {
 				throw new ResourceNotFoundException("User not found.");
 			}
 			Order order = orderRepository.save(orderForm.toOrder());
-			NewOrderDTO orderDTO = new NewOrderDTO(order);
+			NewOrderDTO orderDTO = new NewOrderDTO(order, user);
 			return orderDTO;						
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());

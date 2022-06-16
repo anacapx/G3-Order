@@ -10,6 +10,9 @@ import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import java.lang.RuntimeException;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -19,18 +22,23 @@ import com.google.gson.Gson;
 
 public class RestService {
 
-	public static User getUserById(Long userId) throws IOException {
+	public static User getUserById(Long userId, HttpServletRequest servletRequest) throws IOException {
 
 		Integer userIdInt = userId.intValue();
-		String token = SecurityContextHolder.getContext().getAuthentication().getCredentials().toString();
+		String token = servletRequest.getHeader("Authorization");
+		token = token.replace("Bearer", "").trim();
+//				SecurityContextHolder.getContext().getAuthentication().getCredentials().toString();
 		HttpClient client = HttpClients.custom().build();
-		HttpUriRequest request = RequestBuilder.get().setUri(System.getenv("API_USER_URL") + userIdInt)
+		String path = (System.getenv("API_USER_URL") + userIdInt.toString()).replace(" ", "");
+		System.out.println(path);
+		HttpUriRequest request = RequestBuilder.get().setUri(path)
 				.setHeader("Authorization", "Bearer " + token).build();
 		HttpResponse response = client.execute(request);
 
 		String bodyAsString = EntityUtils.toString(response.getEntity());
+		System.out.println("response: " + bodyAsString);
 		User user = new Gson().fromJson(bodyAsString, User.class);
-
+		System.out.println("user: " + user.toString());
 		return user;
 	}
 

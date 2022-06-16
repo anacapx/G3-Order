@@ -20,7 +20,7 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "orderId", nullable = false)
-	private Long orderId = Long.valueOf(1);
+	private Long orderId;
 	
 	@Column(name = "user_id", nullable = false)
 	private Long userId;
@@ -94,5 +94,12 @@ public class Order {
 	public void setStatus(OrderEnum status) {
 		this.status = status;
 	}
+
+	@Override
+	public String toString() {
+		return "Order [orderId=" + orderId + ", userId=" + userId + ", value=" + value + ", products=" + products
+				+ ", date=" + date + ", status=" + status + "]";
+	}
+	
 	
 }

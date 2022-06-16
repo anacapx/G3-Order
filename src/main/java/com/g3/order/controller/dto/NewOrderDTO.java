@@ -2,6 +2,8 @@ package com.g3.order.controller.dto;
 
 import java.sql.Timestamp;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.g3.order.model.Order;
 import com.g3.order.model.User;
 import com.g3.order.model.enums.OrderEnum;
@@ -15,14 +17,23 @@ public class NewOrderDTO {
 	private String products;
 	private Timestamp date;
 	private OrderEnum status;
-	
-	public NewOrderDTO(Order order) {
+
+	public NewOrderDTO(Order order, HttpServletRequest httpServletRequest) {
 		try {
-			User user = RestService.getUserById(order.getUserId());
+			User user = RestService.getUserById(order.getUserId(), httpServletRequest);
 			this.user = user;
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());
 		}
+		this.id = order.getOrderId();
+		this.value = order.getValue();
+		this.products = order.getProducts();
+		this.date = order.getDate();
+		this.status = order.getStatus();
+	}
+
+	public NewOrderDTO(Order order, User user) {
+		this.user = user;
 		this.id = order.getOrderId();
 		this.value = order.getValue();
 		this.products = order.getProducts();
@@ -54,4 +65,11 @@ public class NewOrderDTO {
 		return status;
 	}
 
+	@Override
+	public String toString() {
+		return "NewOrderDTO [id=" + id + ", user=" + user + ", value=" + value + ", products=" + products + ", date="
+				+ date + ", status=" + status + "]";
+	}
+
+	
 }
