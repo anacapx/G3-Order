@@ -22,5 +22,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.and().addFilterBefore(new TokenValidationFilter(), UsernamePasswordAuthenticationFilter.class);
 		
 	}
-
 }
