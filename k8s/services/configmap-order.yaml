@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: g3-configmap-user
+  namespace: namespace-g3
+data:
+  DB_USERNAME: ${DB_USERNAME}
+  API_AUTH_URL: auth-svc/validate
+  API_USER_URL: user-svc/user/
+  DB_URL_ORDER: ${DB_URL_ORDER}
+  KAFKA_HOST: ${KAFKA_HOST}
+  KAFKA_TOPIC: ${KAFKA_TOPIC}

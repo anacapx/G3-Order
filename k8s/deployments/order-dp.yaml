@@ -12,9 +12,46 @@ spec:
       labels:
         app: g3-order
     spec:
+      replicas: 2
       containers:
         - name: g3-order
           image: $URL_IMG_ORDER_DOCKER
+          env:
+            - name: DB_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: g3-configmap-order
+                  key: DB_USERNAME
+            - name: DB_URL_ORDER
+              valueFrom:
+                configMapKeyRef:
+                  name: g3-configmap-order
+                  key: DB_URL_ORDER
+            - name: API_AUTH_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: g3-configmap-order
+                  key: API_AUTH_URL
+            - name: API_USER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: g3-configmap-order
+                  key: API_USER_URL
+            - name: KAFKA_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: g3-configmap-user
+                  key: KAFKA_HOST
+            - name: KAFKA_TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  name: g3-configmap-user
+                  key: KAFKA_TOPIC
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysecret-g3
+                  key: DB_PASSWORD
           resources:
             limits:
               memory: "128Mi"
