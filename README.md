@@ -9,8 +9,6 @@ Consiste em um sistema que permite ao administrador, devidamente autenticado e a
 
 - Para ver o repositório da **API User**, clique [aqui](https://github.com/anacapx/g3-user)
 
-- Para ver o repositório da **API Order**, clique [aqui](https://github.com/anacapx/g3-order)
-
 - Para ver o repositório do **consumer Kafka**, clique [aqui](https://github.com/anacapx/g3-consumer)
 
 - Para ver o repositório de **front-end**, clique [aqui](https://github.com/anacapx/g3-front)
